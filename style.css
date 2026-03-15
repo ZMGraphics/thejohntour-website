@@ -14,6 +14,7 @@
   --navy: #13334a;
   --red: #b92a17;
   --tan: #f0ecdf;
+  --tan-light: #f7f4eb;
   --white: #ffffff;
   --black: #0a0a0a;
   --navy-light: #1a4260;
@@ -34,7 +35,7 @@ body {
   font-family: 'DM Sans', sans-serif;
   font-weight: 400;
   color: var(--navy);
-  background: var(--white);
+  background: var(--tan-light);
   line-height: 1.6;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
@@ -113,7 +114,7 @@ img {
   left: 0;
   right: 0;
   z-index: 1000;
-  background: rgba(255, 255, 255, 0.95);
+  background: rgba(247, 244, 235, 0.92);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border-bottom: 1px solid rgba(19, 51, 74, 0.08);
@@ -199,7 +200,7 @@ img {
   left: 0;
   right: 0;
   bottom: 0;
-  background: var(--white);
+  background: var(--tan-light);
   z-index: 999;
   flex-direction: column;
   align-items: center;
@@ -288,7 +289,7 @@ img {
 }
 
 /* =============================================
-   HERO (Home Page)
+   HERO (Home Page) — Full image background
    ============================================= */
 
 .hero {
@@ -297,9 +298,44 @@ img {
   align-items: center;
   justify-content: center;
   position: relative;
-  background: var(--tan);
   padding: 140px 24px 80px;
   overflow: hidden;
+  background: var(--navy);
+}
+
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.hero-bg img,
+.hero-bg video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.35;
+}
+
+.hero-bg img {
+  animation: hero-zoom 20s ease-in-out infinite alternate;
+}
+
+@keyframes hero-zoom {
+  0% { transform: scale(1); }
+  100% { transform: scale(1.08); }
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(19, 51, 74, 0.6) 0%,
+    rgba(19, 51, 74, 0.4) 50%,
+    rgba(19, 51, 74, 0.8) 100%
+  );
+  z-index: 1;
 }
 
 .hero-content {
@@ -316,26 +352,33 @@ img {
   font-size: 13px;
   letter-spacing: 3px;
   text-transform: uppercase;
-  color: var(--red);
-  border: 2px solid var(--red);
+  color: var(--white);
+  border: 2px solid rgba(255, 255, 255, 0.4);
   padding: 6px 20px;
   border-radius: 50px;
   margin-bottom: 32px;
+  animation: badge-glow 3s ease-in-out infinite alternate;
+}
+
+@keyframes badge-glow {
+  0% { border-color: rgba(255, 255, 255, 0.3); }
+  100% { border-color: rgba(185, 42, 23, 0.8); color: var(--red); }
 }
 
 .hero-title {
   font-family: 'Barlow Condensed', sans-serif;
   font-weight: 800;
-  font-size: clamp(56px, 10vw, 100px);
-  line-height: 0.95;
-  color: var(--navy);
-  letter-spacing: -1px;
+  font-size: clamp(56px, 10vw, 110px);
+  line-height: 0.92;
+  color: var(--white);
+  letter-spacing: -2px;
   margin-bottom: 24px;
+  text-shadow: 0 4px 40px rgba(0, 0, 0, 0.3);
 }
 
 .hero-sub {
-  font-size: 18px;
-  color: var(--gray);
+  font-size: 19px;
+  color: rgba(255, 255, 255, 0.7);
   margin-bottom: 40px;
   font-weight: 500;
 }
@@ -357,6 +400,36 @@ img {
 
 .hero-flag img {
   width: 500px;
+}
+
+/* Scroll indicator */
+.hero-scroll {
+  position: absolute;
+  bottom: 32px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  color: rgba(255, 255, 255, 0.4);
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 12px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  animation: scroll-bounce 2s ease-in-out infinite;
+}
+
+.hero-scroll-line {
+  width: 1px;
+  height: 40px;
+  background: linear-gradient(to bottom, rgba(255,255,255,0.4), transparent);
+}
+
+@keyframes scroll-bounce {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50% { transform: translateX(-50%) translateY(8px); }
 }
 
 /* =============================================
@@ -477,7 +550,8 @@ img {
   color: rgba(255, 255, 255, 0.75);
 }
 
-.section-tan .about-desc {
+.section-tan .about-desc,
+.section .about-desc {
   color: var(--gray);
 }
 
@@ -520,7 +594,7 @@ img {
 }
 
 .value-card {
-  background: var(--white);
+  background: var(--tan-light);
   border-radius: var(--radius-lg);
   padding: 40px 32px;
   text-align: center;
@@ -555,7 +629,7 @@ img {
 }
 
 /* =============================================
-   CREW PAGE
+   CREW / THE JOHNS
    ============================================= */
 
 .crew-grid {
@@ -565,11 +639,11 @@ img {
 }
 
 .crew-card {
-  background: var(--white);
+  background: var(--tan);
   border-radius: var(--radius-lg);
   padding: 48px 24px 40px;
   text-align: center;
-  border: 1px solid rgba(19, 51, 74, 0.08);
+  border: 1px solid rgba(19, 51, 74, 0.06);
   transition: var(--transition);
   position: relative;
   overflow: hidden;
@@ -605,6 +679,12 @@ img {
   align-items: center;
   justify-content: center;
   margin: 0 auto 24px;
+  transition: var(--transition);
+}
+
+.crew-card:hover .crew-avatar {
+  transform: scale(1.08);
+  box-shadow: 0 8px 24px rgba(19, 51, 74, 0.2);
 }
 
 .crew-initial {
@@ -621,20 +701,98 @@ img {
   letter-spacing: 1px;
   text-transform: uppercase;
   color: var(--navy);
-  margin-bottom: 8px;
 }
 
-.crew-role {
+/* =============================================
+   TIKTOK EMBED
+   ============================================= */
+
+.tiktok-section {
+  padding: 100px 0;
+  background: var(--tan);
+}
+
+.tiktok-grid {
+  display: flex;
+  gap: 24px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 48px;
+}
+
+.tiktok-embed-wrapper {
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: 0 8px 32px rgba(19, 51, 74, 0.1);
+  transition: var(--transition);
+  background: var(--tan-light);
+}
+
+.tiktok-embed-wrapper:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 48px rgba(19, 51, 74, 0.15);
+}
+
+.tiktok-placeholder {
+  width: 320px;
+  min-height: 580px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  padding: 40px 24px;
+  text-align: center;
+  background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%);
+  color: var(--white);
+  border-radius: var(--radius-lg);
+  transition: var(--transition);
+  cursor: pointer;
+}
+
+.tiktok-placeholder:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 48px rgba(19, 51, 74, 0.2);
+}
+
+.tiktok-placeholder svg {
+  width: 56px;
+  height: 56px;
+  opacity: 0.9;
+}
+
+.tiktok-placeholder .tiktok-handle {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700;
+  font-size: 20px;
+  letter-spacing: 1px;
+}
+
+.tiktok-placeholder .tiktok-cta {
   font-size: 14px;
-  color: var(--gray);
+  opacity: 0.5;
   font-weight: 500;
 }
 
-.crew-bio {
-  font-size: 15px;
-  color: var(--gray);
-  line-height: 1.6;
-  margin-top: 16px;
+.tiktok-placeholder .tiktok-btn {
+  margin-top: 12px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--red);
+  color: var(--white);
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  padding: 12px 28px;
+  border-radius: var(--radius);
+  transition: var(--transition);
+}
+
+.tiktok-placeholder:hover .tiktok-btn {
+  background: var(--red-dark);
 }
 
 /* =============================================
@@ -657,6 +815,11 @@ img {
 .merch-image img {
   width: 100%;
   border-radius: var(--radius-lg);
+  transition: transform 0.6s ease;
+}
+
+.merch-image:hover img {
+  transform: scale(1.03);
 }
 
 .merch-badge {
@@ -671,6 +834,12 @@ img {
   letter-spacing: 2px;
   padding: 8px 20px;
   border-radius: 50px;
+  animation: pulse-badge 2s ease-in-out infinite;
+}
+
+@keyframes pulse-badge {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(185, 42, 23, 0.4); }
+  50% { box-shadow: 0 0 0 10px rgba(185, 42, 23, 0); }
 }
 
 .merch-name {
@@ -723,7 +892,7 @@ img {
   padding: 14px 20px;
   border: 2px solid rgba(19, 51, 74, 0.15);
   border-radius: var(--radius);
-  background: var(--white);
+  background: var(--tan-light);
   color: var(--navy);
   outline: none;
   transition: var(--transition);
@@ -861,18 +1030,51 @@ img {
 }
 
 /* =============================================
-   SCROLL ANIMATIONS
+   SCROLL ANIMATIONS — Enhanced 2026
    ============================================= */
 
 .fade-up {
   opacity: 0;
   transform: translateY(30px);
-  transition: opacity 0.6s ease, transform 0.6s ease;
+  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .fade-up.visible {
   opacity: 1;
   transform: translateY(0);
+}
+
+/* Staggered delays for grid children */
+.crew-card:nth-child(1) { transition-delay: 0s; }
+.crew-card:nth-child(2) { transition-delay: 0.1s; }
+.crew-card:nth-child(3) { transition-delay: 0.2s; }
+.crew-card:nth-child(4) { transition-delay: 0.3s; }
+
+.value-card:nth-child(1) { transition-delay: 0s; }
+.value-card:nth-child(2) { transition-delay: 0.15s; }
+.value-card:nth-child(3) { transition-delay: 0.3s; }
+
+/* Smooth section dividers */
+.section-divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(19, 51, 74, 0.12), transparent);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Text reveal on scroll */
+.reveal-text {
+  clip-path: inset(0 0 100% 0);
+  transition: clip-path 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal-text.visible {
+  clip-path: inset(0 0 0% 0);
+}
+
+/* Parallax helper */
+.parallax-slow {
+  will-change: transform;
 }
 
 /* =============================================
@@ -915,6 +1117,11 @@ img {
   .notify-form {
     flex-direction: column;
   }
+
+  .tiktok-placeholder {
+    width: 280px;
+    min-height: 480px;
+  }
 }
 
 @media (max-width: 600px) {
@@ -923,7 +1130,7 @@ img {
   }
 
   .hero-title {
-    font-size: 48px;
+    font-size: 52px;
   }
 
   .about-stats {
@@ -937,5 +1144,9 @@ img {
   .social-card {
     min-width: 160px;
     padding: 32px;
+  }
+
+  .hero-scroll {
+    display: none;
   }
 }
